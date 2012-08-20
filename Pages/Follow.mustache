@@ -1,0 +1,21 @@
+<div class="follow-box box">
+	<div class="follow-header "><h2>Following</h2></div>
+	<div class="following-content">
+		{{#Following}}
+			<div class="follow-item top-divider">
+				<h3 class="screen-name" >#{{UserName}}<h3>
+			</div>
+		{{/Following}}
+	</div>
+</div>
+
+<div class="follow-box box">
+	<div class="follow-header"><h2>Followers</h2></div>
+	<div class="follower-content">
+		{{#FollowedBy}}
+			<div class="follow-item top-divider">
+				<h3 class="screen-name" >#{{UserName}}<h3>
+			</div>
+		{{/FollowedBy}}
+	</div>
+</div>

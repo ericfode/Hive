@@ -1,81 +1,39 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
-*{
-	font-family: 'Source Sans Pro', sans-serif;;
+
+
+
+
+.profile-box .info .username{
+	line-height: 25px;
 }
 
-.profile-box h1{
-	font-family: 'Source Sans Pro', sans-serif;;
-	font-size: 40;
-}
-
-body{
-	background-color: #403B36;
-}
-
-.profile-box .name{
-	margin-top: 12px;
-}
-.profile-box .info{
-	padding-top: 1px;
-	line-height: 2px;
-	height: 80px;
-}
-
-
-.profile-box .name{
-	color: #4F8A34;
-}
-
-
-.profile-box .screen-name{
-	color:#4F8A34;
+.profile-box .info .name{
+	line-height: 25px;
 }
 
 .profile-box .github a:link{
 	color: #767678;
 
 }
-.profile-box .details{
-	line-height: 2px;
-	color: #767676;
-
-}
-
 .profile-box .skills{
-	padding-top: 0px;
-	line-height: 20px;
 }
-.profile-box{
-	width: 300px;
-	height: 150px;
-	padding-top:10px;
-	padding-left:10px;
-	border-radius: 5px;
-	background-color: #F5F5F5;
+.profile-box .details{
+	margin-top:5px;
+	color: #767676;
+	padding-left: 20px;
+
+}
+
+.profile-box .main-info{
+	height:100px;
+	padding-left: 20px;
 }
 
 .profile-box .profile {
-	display: inline;
-	width: 400px;
-}
-.profile-box .leftBrace {
-	font-size: 10em;
-	float: left;
-	display: inline;
+	margin-left: 0px;
 }
 
-.rightBrace{
-	font-size: 10em;
-	float: right;
-	display: inline;
-}
-
-.pic{
+.profile-box .pic{
 	float: left;
 	margin-right: 5px;
-}
-
-
-.info{
-	float: right:
 }

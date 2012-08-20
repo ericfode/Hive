@@ -1,0 +1,25 @@
+.stream-item{
+	background-color: #F5F5F5;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-left: 0px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #A5A5A5
+}
+
+.stream-item .jit{
+
+}
+
+.stream-item .pic{
+}
+
+
+.stream-box{
+	margin-left: 0px;
+	background-color: #f5f5F5;
+	border-radius: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

@@ -1,0 +1,37 @@
+.screen-name{
+	/*color:#4F8A34;*/
+}
+
+body{
+	background-image: url(http://fullhdwallpapers.info/wp-content/uploads/2011/10/digital-code-wallpaper.jpg);
+}
+.bottom-divider{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #A5A5A5
+}
+.top-divider{
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #A5A5A5
+}
+
+
+.bottom-divider-thick{
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #A5A5A5
+}
+
+.small-thumb{
+	width: 40px;
+	height: 40px;
+}
+
+.box{
+	padding-top:10px;
+	padding-bottom: 5px;
+	border-radius: 5px;
+	background-color: #F5F5F5;
+	margin-bottom: 20px;
+}

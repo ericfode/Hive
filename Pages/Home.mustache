@@ -1,0 +1,25 @@
+<div class="container main">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="#" class="pull-left brand">JITter</a>
+				<ul class="nav pull-right">
+					<li > <a class="dropdown-toggle" href="#" >Log In</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="row">
+			<div class="span4">
+				{{#CardRender}}
+					{{{Html}}}
+				{{/CardRender}}
+				{{#FollowRender}}
+					{{{Html}}}
+				{{/FollowRender}}
+			</div>
+			<div class="span8">{{#StreamRender}}{{{Html}}}{{/StreamRender}}</div>
+		</div>
+	</div>
+</div>

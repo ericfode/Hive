@@ -1,0 +1,790 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"border-bott",
+				"border-bottom-color"
+			],
+			[
+				"init",
+				"initDummys	[]*User ƒ"
+			],
+			[
+				"ini",
+				"initDummys	[]*User ƒ"
+			],
+			[
+				"foll",
+				"Follow	struct ʈ"
+			],
+			[
+				"ren",
+				"RenderFile	string ƒ"
+			],
+			[
+				"set",
+				"SetID	 ƒ"
+			],
+			[
+				"GetNode",
+				"GetNodeDbIndex	Node, error ƒ"
+			],
+			[
+				"Err",
+				"Errorf	 ƒ"
+			],
+			[
+				"soca",
+				"SocialNodeConst	Node ƒ"
+			],
+			[
+				"add",
+				"AddNode	 ƒ"
+			],
+			[
+				"get",
+				"GetAwesomeness	int ƒ"
+			],
+			[
+				"Social",
+				"SocialNode	struct ʈ"
+			],
+			[
+				"Soc",
+				"SocialNodeConst	Node ƒ"
+			],
+			[
+				"Add",
+				"AddNode	 ƒ"
+			],
+			[
+				"node",
+				"nodeIDs	[][]byte ν"
+			],
+			[
+				"S",
+				"Smembers	result [][]byte, err redis.Error ƒ"
+			],
+			[
+				"NodeCon",
+				"NodeConstructor	func(id string, gm GraphBackend) Node ʈ"
+			],
+			[
+				"Graph",
+				"GraphManager	struct ʈ"
+			],
+			[
+				"log",
+				"Logf	 ƒ"
+			],
+			[
+				"C",
+				"ClearAll	 ƒ"
+			],
+			[
+				"Er",
+				"Errorf	 ƒ"
+			],
+			[
+				"Log",
+				"Logf	 ƒ"
+			],
+			[
+				"Gra",
+				"GraphManager	struct ʈ"
+			],
+			[
+				"Socia",
+				"SocialNode	struct ʈ"
+			],
+			[
+				"Erro",
+				"Errorf	 ƒ"
+			],
+			[
+				"So",
+				"SocialNode	struct ʈ"
+			],
+			[
+				"Edge",
+				"EdgeConstructor	func(string id) Edge ʈ"
+			],
+			[
+				"Node",
+				"NodeConstructor	func(id string) Node ʈ"
+			],
+			[
+				"ge",
+				"GetID	string ƒ"
+			],
+			[
+				"updae",
+				"UpdateEdgeProp	error ƒ"
+			],
+			[
+				"nod",
+				"node_s	 Ɩ"
+			],
+			[
+				"HG",
+				"Hgetall	result [][]byte, err redis.Error ƒ"
+			],
+			[
+				"Edg",
+				"EdgeNotAddedToDBError	*Edge ʈ"
+			],
+			[
+				"test",
+				"testsNodes	[]SocialNode ν"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "hive.go",
+			"settings":
+			{
+				"buffer_size": 6055,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/Follow.mustache",
+			"settings":
+			{
+				"buffer_size": 526,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/StreamItem.mustache",
+			"settings":
+			{
+				"buffer_size": 284,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/DisplayProfile.mustache",
+			"settings":
+			{
+				"buffer_size": 840,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/Home.mustache",
+			"settings":
+			{
+				"buffer_size": 579,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/CSS/global.css",
+			"settings":
+			{
+				"buffer_size": 631,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/CSS/Follow.css",
+			"settings":
+			{
+				"buffer_size": 145,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);\n\n\n\n\n.profile-box .info .username{\n	line-height: 25px;\n}\n\n.profile-box .info .name{\n	line-height: 25px;\n}\n\n.profile-box .github a:link{\n	color: #767678;\n\n}\n\n.profile-box .details{\n	margin-top:5px;\n	color: #767676;\n	padding-left: 20px;\n\n}\n\n.profile-box .main-info{\n	height:100px;\n	padding-left: 20px;\n}\n\n.profile-box .profile {\n	margin-left: 0px;\n}\n\n.profile-box .pic{\n	float: left;\n	margin-right: 5px;\n}\n",
+			"file": "Pages/CSS/DisplayProfile.css",
+			"file_size": 507,
+			"file_write_time": 1345501639000000,
+			"settings":
+			{
+				"buffer_size": 484,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/CSS/Home.css",
+			"settings":
+			{
+				"buffer_size": 192,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 138.0,
+		"selected_items":
+		[
+			[
+				"set html",
+				"Set Syntax: HTML"
+			],
+			[
+				"set HTML",
+				"Set Syntax: HTML"
+			],
+			[
+				"zen ",
+				"Zen Coding: Zen as you type"
+			],
+			[
+				"set HTM",
+				"Set Syntax: HTML"
+			],
+			[
+				"zen as yo",
+				"Zen Coding: Zen as you type"
+			],
+			[
+				"set HTm",
+				"Set Syntax: HTML"
+			],
+			[
+				"git push",
+				"Git: Push Current Branch"
+			],
+			[
+				"git qc",
+				"Git: Quick Commit"
+			],
+			[
+				"git adh",
+				"Git: Add Selected Hunk"
+			],
+			[
+				"git bra",
+				"Git: Change Branch"
+			],
+			[
+				"git add hu",
+				"Git: Add Selected Hunk"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git ad",
+				"Git: Add..."
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"git q c",
+				"Git: Quick Commit"
+			],
+			[
+				"git branch",
+				"Git: New Branch"
+			],
+			[
+				"git add ",
+				"Git: Add Current File"
+			],
+			[
+				"git add h",
+				"Git: Add Selected Hunk"
+			],
+			[
+				"go test",
+				"GoSublime: Run Tests"
+			],
+			[
+				"git quii",
+				"Git: Quick Commit"
+			],
+			[
+				"git blame",
+				"Git: Blame"
+			],
+			[
+				"gitq",
+				"Git: Quick Commit"
+			],
+			[
+				"gitcomm",
+				"Git: Commit"
+			],
+			[
+				"gipu",
+				"Git: Pull"
+			],
+			[
+				"git add c",
+				"Git: Add Current File"
+			],
+			[
+				"new go",
+				"GoSublime: New Go File"
+			],
+			[
+				"git pus",
+				"Git: Push"
+			],
+			[
+				"git commit",
+				"Git: Commit"
+			],
+			[
+				"git command",
+				"Git: Custom Command"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"gosbu",
+				"GoSublime: Install/Update MarGo and Gocode"
+			],
+			[
+				"go subli",
+				"GoSublime: Install/Update MarGo and Gocode"
+			],
+			[
+				"gosubl",
+				"GoSublime: Install/Update MarGo and Gocode"
+			],
+			[
+				"open",
+				"View: Toggle Open Files in Side Bar"
+			]
+		],
+		"width": 494.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/Hive/Pages/layout.mustache",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/Edge.go",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/GraphBackend.go",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/Node.go",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/Connection.go",
+		"/home/ericfode/.config/sublime-text-2/Packages/User/InitTestSpider.sublime-snippet",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/GraphManager_test.go",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/util.go",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/GraphManager.go",
+		"/home/ericfode/proj/SpiderDB/Blog.sublime-workspace",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/dbErrors.go",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/SocialEdge.go",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/SocialNode.go",
+		"/home/ericfode/proj/SpiderDB/	GraphManager_test.go",
+		"/home/ericfode/.config/sublime-text-2/Packages/GoSublime/CHANGELOG.md",
+		"/home/ericfode/proj/SpiderDB/dbErrors.go",
+		"/home/ericfode/proj/SpiderDB/GraphManager_test.go"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"out",
+			"initTestNodes()",
+			".id"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"initTestNodes(gm)",
+			"initTestNodes()",
+			".GetID()"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "hive.go",
+					"settings":
+					{
+						"buffer_size": 6055,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3666,
+								3666
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1785.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Pages/Follow.mustache",
+					"settings":
+					{
+						"buffer_size": 526,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								334,
+								334
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Pages/StreamItem.mustache",
+					"settings":
+					{
+						"buffer_size": 284,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								87,
+								87
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Pages/DisplayProfile.mustache",
+					"settings":
+					{
+						"buffer_size": 840,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								206,
+								206
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Pages/Home.mustache",
+					"settings":
+					{
+						"buffer_size": 579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								354,
+								354
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "Pages/CSS/global.css",
+					"settings":
+					{
+						"buffer_size": 631,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								554,
+								554
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Pages/CSS/Follow.css",
+					"settings":
+					{
+						"buffer_size": 145,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								142,
+								142
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Pages/CSS/DisplayProfile.css",
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								236,
+								236
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Pages/CSS/Home.css",
+					"settings":
+					{
+						"buffer_size": 192,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								170,
+								170
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.643914473684,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.GsDoc-output":
+	{
+		"height": 112.0
+	},
+	"output.exec":
+	{
+		"height": 200.0
+	},
+	"output.git":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"graph",
+				"GraphManager.go"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/SpiderDB.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
