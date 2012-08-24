@@ -284,7 +284,7 @@ func renderSplash() string {
 	return html
 }
 
-func renderPage() string {
+func renderPage(ctx *web.Context) string {
 	home := new(Home)
 
 	userID := "0"
