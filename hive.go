@@ -4,9 +4,15 @@ import "github.com/hoisie/web"
 import "github.com/hoisie/mustache"
 import "io/ioutil"
 
-//TODO: refactor all structs out to own files and create render and compile methods for each
+import "github.com/HackerSchool12/SpiderDB"
+import "github.com/HackerSchool12/SpiderDB/socialGraph"
+import "fmt"
 
+//TODO: refactor all structs out to own files and create render and compile methods for each
 //Render methods are for getting a page with just that items content
+
+var gm *spiderDB.GraphManager
+
 type User struct {
 	Pic        string
 	ProperName string
@@ -44,10 +50,13 @@ type Follow struct {
 	Html       string
 }
 
-func initDummys() []*User {
-	var testNodes []*User
+func initDummys() {
+	gm = new(spiderDB.GraphManager)
+	gm.Initialize()
+
 	const numdum = 8
-	pics := [numdum]string{"picTEST", "http://4.bp.blogspot.com/-Q2hjS1dS1R8/T4YXpOfNjOI/AAAAAAAAAxQ/c-V_1FkMYmo/s1600/Bug.jpg",
+	pics := [numdum]string{"http://content8.flixster.com/question/28/64/25/2864258_std.jpg",
+		"http://4.bp.blogspot.com/-Q2hjS1dS1R8/T4YXpOfNjOI/AAAAAAAAAxQ/c-V_1FkMYmo/s1600/Bug.jpg",
 		"https://encrypted-tbn1.google.com/images?q=tbn:ANd9GcRs5AS0g3hHRdJsO7gBgwu9v1Hr4grtuc_G1dh59MbxEVW3VH-GNw",
 		"https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcSJVzRTk5jiGvRIcKQZs-pm4__kMQOWae0WGGl3H32xZCTvci9U",
 		"https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcQ6VCAy3UhBqNohPBG1Dr5nVd2WfwTLnINK_pmh0Wo7RUPh7vwpjw",
@@ -75,12 +84,38 @@ func initDummys() []*User {
 		"http://github.com/IAMAUSER"}
 
 	for k, _ := range pics {
-
-		newNode := &User{Pic: pics[k], ProperName: names[k], UserName: users[k], Email: "email@somewhere.com", Bio: bios[k], Skills: "skills", Github: github[k]}
-		testNodes = append(testNodes, newNode)
+		newNode := socialGraph.NewSocialNode(pics[k],
+			names[k], users[k], "email@somewhere.com",
+			bios[k], "skills", github[k], gm)
+		gm.AddNode(newNode)
 	}
 
-	return testNodes
+	edgF := socialGraph.NewSocialEdge(1, "follows", gm)
+	edgFB := socialGraph.NewSocialEdge(1, "follower", gm)
+
+	gm.AddEdge(edgF)
+	gm.AddEdge(edgFB)
+
+	var err error
+
+	node0, err := gm.GetNode("1", socialGraph.SocialNodeConst)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	node1, err := gm.GetNode("2", socialGraph.SocialNodeConst)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	node2, err := gm.GetNode("3", socialGraph.SocialNodeConst)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+
+	gm.Attach(node0, node1, edgF)
+	gm.Attach(node0, node2, edgFB)
+
+	fmt.Printf("...%v\n\n...%v\n\n", edgF.GetPropMap(), edgFB.GetPropMap())
+
 }
 
 func dummyStreamItem() *StreamItem {
@@ -102,6 +137,31 @@ func dummyUser() *User {
 	return user
 }
 
+func AddJitter(userID string, jit string) {
+	currUser, _ := gm.GetNode(userID, socialGraph.SocialNodeConst)
+	jitter := socialGraph.NewMessageNode(jit)
+	edge := socialGraph.NewSocialEdge(8182012, "jittered", gm)
+	gm.Attach(currUser, jitter, edge)
+
+}
+
+//node -> social node -> user???? There's got to be a better way.
+// FIX ME
+func FetchUserInfo(userID string) *User {
+	n, err := gm.GetNode(userID, socialGraph.SocialNodeConst)
+
+	if err != nil {
+		return nil
+	}
+
+	sn, ok := n.(*socialGraph.SocialNode)
+	if !ok {
+		return nil
+	}
+
+	return SocialNodeToUser(sn)
+}
+
 func renderProfile() string {
 	html := mustache.RenderFileInLayout("Pages/DisplayProfile.mustache", "Pages/layout.mustache", dummyUser())
 	return html
@@ -112,10 +172,67 @@ func compileProfile(user *User) *User {
 	return user
 }
 
-func renderFollow() string {
+func GetFollow(userID string) ([]*User, []*User, error) {
+	following := make([]*User, 0)
+	followedBy := make([]*User, 0)
+
+	node, err1 := gm.GetNode(userID, socialGraph.SocialNodeConst)
+	nbr, err2 := gm.GetNeighbors(node, socialGraph.SocialEdgeConst, socialGraph.SocialNodeConst)
+
+	fmt.Printf("%v\n\n", nbr)
+
+	if err1 != nil {
+		return nil, nil, err1
+	}
+
+	if err2 != nil {
+		return nil, nil, err2
+	}
+
+	for _, v := range nbr {
+
+		sn, ok := v.NodeB.(*socialGraph.SocialNode)
+		if !ok {
+			return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+		}
+		usr := SocialNodeToUser(sn)
+
+		if v.Edg.GetType() == "follows" {
+			following = append(following, usr)
+		}
+		if v.Edg.GetType() == "follower" {
+			followedBy = append(followedBy, usr)
+		}
+	}
+
+	return following, followedBy, nil
+}
+
+func SocialNodeToUser(sn *socialGraph.SocialNode) *User {
+	usr := &User{}
+
+	usr.Pic = sn.GetPic()
+	usr.ProperName = sn.GetProperName()
+	usr.UserName = sn.GetUserName()
+	usr.Email = sn.GetEmail()
+	usr.Bio = sn.GetBio()
+	usr.Skills = sn.GetSkills()
+	usr.Github = sn.GetGit()
+
+	return usr
+}
+
+func renderFollow(userID string) string {
 	follow := new(Follow)
-	follow.FollowedBy = initDummys()[0:4]
-	follow.Following = initDummys()[4:7]
+	followedBy, following, err := GetFollow(userID)
+
+	if err != nil {
+		return "Failed to get Follow Lists"
+	}
+
+	follow.FollowedBy = followedBy
+	follow.Following = following
+
 	return compileFollow(follow).Html
 }
 
@@ -163,14 +280,30 @@ func compileHome(home *Home) *Home {
 	return home
 }
 
-func renderPage() string {
+func renderPage(ctx *web.Context) string {
+
 	home := new(Home)
-	home.CardRender = dummyUser()
+
+	userID := "0"
+	for k, v := range ctx.Params {
+		if k == "user" {
+			userID = v
+		}
+	}
+
+	fmt.Printf("++++++++++++++++USER NUMBER %v +++++++++\n", userID)
+	followedBy, following, err := GetFollow(userID)
+
+	if err != nil {
+		fmt.Printf("len follow: %v ... len followedby: %v\n", len(following), len(followedBy))
+		fmt.Print(err.Error())
+	}
+	home.CardRender = FetchUserInfo(userID)
 	home.StreamRender = &Stream{Items: []*StreamItem{
 		dummyStreamItem(), dummyStreamItem(), dummyStreamItem()}}
 	home.FollowRender = new(Follow)
-	home.FollowRender.FollowedBy = initDummys()[0:4]
-	home.FollowRender.Following = initDummys()[4:7]
+	home.FollowRender.FollowedBy = followedBy
+	home.FollowRender.Following = following
 
 	compileHome(home)
 	home.Html = mustache.RenderFileInLayout("Pages/Home.mustache", "Pages/layout.mustache", home)
@@ -210,6 +343,7 @@ func renderJS(val string) string {
 }
 
 func main() {
+	initDummys()
 	web.Get("/", renderPage)
 	web.Get("/ProfileCard", renderProfile)
 	web.Get("/CSS/(.*)", renderCSS)
