@@ -275,8 +275,16 @@ func compileHome(home *Home) *Home {
 	return home
 }
 
-func renderPage(ctx *web.Context) string {
+func compileSplash() {
 
+}
+
+func renderSplash() string {
+	html := mustache.RenderFileInLayout("Pages/Splash.mustache", "Pages/layout.mustache")
+	return html
+}
+
+func renderPage() string {
 	home := new(Home)
 
 	userID := "0"
@@ -338,6 +346,7 @@ func renderJS(val string) string {
 func main() {
 	initDummys()
 	web.Get("/", renderPage)
+	web.Get("/Splash", renderSplash)
 	web.Get("/ProfileCard", renderProfile)
 	web.Get("/CSS/(.*)", renderCSS)
 	web.Get("/JS/(.*)", renderJS)
