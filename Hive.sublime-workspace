@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Ren",
+				"RenderFileInLayout	string ƒ"
+			],
+			[
 				"border-bott",
 				"border-bottom-color"
 			],
@@ -147,7 +151,7 @@
 			"file": "hive.go",
 			"settings":
 			{
-				"buffer_size": 6055,
+				"buffer_size": 6248,
 				"line_ending": "Unix"
 			}
 		},
@@ -184,6 +188,22 @@
 			}
 		},
 		{
+			"file": "Pages/Splash.mustache",
+			"settings":
+			{
+				"buffer_size": 1700,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/Login.html",
+			"settings":
+			{
+				"buffer_size": 601,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "Pages/CSS/global.css",
 			"settings":
 			{
@@ -200,10 +220,7 @@
 			}
 		},
 		{
-			"contents": "@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);\n\n\n\n\n.profile-box .info .username{\n	line-height: 25px;\n}\n\n.profile-box .info .name{\n	line-height: 25px;\n}\n\n.profile-box .github a:link{\n	color: #767678;\n\n}\n\n.profile-box .details{\n	margin-top:5px;\n	color: #767676;\n	padding-left: 20px;\n\n}\n\n.profile-box .main-info{\n	height:100px;\n	padding-left: 20px;\n}\n\n.profile-box .profile {\n	margin-left: 0px;\n}\n\n.profile-box .pic{\n	float: left;\n	margin-right: 5px;\n}\n",
 			"file": "Pages/CSS/DisplayProfile.css",
-			"file_size": 507,
-			"file_write_time": 1345501639000000,
 			"settings":
 			{
 				"buffer_size": 484,
@@ -226,11 +243,27 @@
 		"selected_items":
 		[
 			[
-				"set html",
+				"set HTML",
 				"Set Syntax: HTML"
 			],
 			[
-				"set HTML",
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git commit",
+				"Git: Commit"
+			],
+			[
+				"git unsta",
+				"Git: Reset (unstage) Current File"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"set html",
 				"Set Syntax: HTML"
 			],
 			[
@@ -248,10 +281,6 @@
 			[
 				"set HTm",
 				"Set Syntax: HTML"
-			],
-			[
-				"git push",
-				"Git: Push Current Branch"
 			],
 			[
 				"git qc",
@@ -284,10 +313,6 @@
 			[
 				"git comm",
 				"Git: Commit"
-			],
-			[
-				"git add",
-				"Git: Add..."
 			],
 			[
 				"git q c",
@@ -342,10 +367,6 @@
 				"Git: Push"
 			],
 			[
-				"git commit",
-				"Git: Commit"
-			],
-			[
 				"git command",
 				"Git: Custom Command"
 			],
@@ -391,6 +412,8 @@
 	},
 	"file_history":
 	[
+		"/home/ericfode/hack.php",
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/Hive/Hive",
 		"/home/ericfode/proj/go/src/github.com/HackerSchool12/Hive/Pages/layout.mustache",
 		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/Edge.go",
 		"/home/ericfode/proj/go/src/github.com/HackerSchool12/SpiderDB/GraphBackend.go",
@@ -449,7 +472,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -457,15 +480,15 @@
 					"file": "hive.go",
 					"settings":
 					{
-						"buffer_size": 6055,
+						"buffer_size": 6248,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3666,
-								3666
+								4950,
+								4950
 							]
 						],
 						"settings":
@@ -474,7 +497,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1785.0,
+						"translation.y": 3689.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -572,8 +595,62 @@
 						"selection":
 						[
 							[
-								354,
-								354
+								157,
+								157
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Pages/Splash.mustache",
+					"settings":
+					{
+						"buffer_size": 1700,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								307,
+								307
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Pages/Login.html",
+					"settings":
+					{
+						"buffer_size": 601,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								412,
+								412
 							]
 						],
 						"settings":
@@ -590,11 +667,11 @@
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "Pages/CSS/global.css",
 					"settings":
 					{
@@ -605,8 +682,8 @@
 						"selection":
 						[
 							[
-								554,
-								554
+								42,
+								42
 							]
 						],
 						"settings":
@@ -621,7 +698,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 8,
 					"file": "Pages/CSS/Follow.css",
 					"settings":
 					{
@@ -647,7 +724,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 9,
 					"file": "Pages/CSS/DisplayProfile.css",
 					"settings":
 					{
@@ -674,7 +751,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 10,
 					"file": "Pages/CSS/Home.css",
 					"settings":
 					{
@@ -730,7 +807,7 @@
 		"cols":
 		[
 			0.0,
-			0.643914473684,
+			0.510690789473,
 			1.0
 		],
 		"rows":

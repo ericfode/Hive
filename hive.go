@@ -163,6 +163,15 @@ func compileHome(home *Home) *Home {
 	return home
 }
 
+func compileSplash() {
+
+}
+
+func renderSplash() string {
+	html := mustache.RenderFileInLayout("Pages/Splash.mustache", "Pages/layout.mustache")
+	return html
+}
+
 func renderPage() string {
 	home := new(Home)
 	home.CardRender = dummyUser()
@@ -211,6 +220,7 @@ func renderJS(val string) string {
 
 func main() {
 	web.Get("/", renderPage)
+	web.Get("/Splash", renderSplash)
 	web.Get("/ProfileCard", renderProfile)
 	web.Get("/CSS/(.*)", renderCSS)
 	web.Get("/JS/(.*)", renderJS)

@@ -2,8 +2,22 @@
 	/*color:#4F8A34;*/
 }
 
+.splash .header{
+	margin-top:10px;
+	font-size: 60px;
+}
+
+
+.splash .subheader{
+	color: #757575;
+}
+
+.splash .signup{
+	margin-left: 40px;
+}
 body{
-	background-image: url(http://fullhdwallpapers.info/wp-content/uploads/2011/10/digital-code-wallpaper.jpg);
+	/*background-image: url(http://fullhdwallpapers.info/wp-content/uploads/2011/10/digital-code-wallpaper.jpg);*/
+	background-image: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/use_your_illusion.png);
 }
 .bottom-divider{
 	border-bottom-width: 1px;
