@@ -186,16 +186,23 @@ func GetFollow(userID string) ([]*User, []*User, error) {
 
 	for _, v := range nbr {
 
-		sn, ok := v.NodeB.(*socialGraph.SocialNode)
-		if !ok {
-			return nil, nil, &hiveError{"Cannot cast to SocialNode"}
-		}
-		usr := SocialNodeToUser(sn)
+		if node.Equals(v.Edg.GetFirstNode()) {
 
-		if v.Edg.GetType() == "follows" {
+			sn, ok := v.NodeB.(*socialGraph.SocialNode)
+			if !ok {
+				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+			}
+			usr := SocialNodeToUser(sn)
+
 			following = append(following, usr)
 		}
-		if v.Edg.GetType() == "follower" {
+		if node.Equals(v.Edg.GetSecondNode()) {
+			sn, ok := v.NodeA.(*socialGraph.SocialNode)
+			if !ok {
+				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+			}
+			usr := SocialNodeToUser(sn)
+
 			followedBy = append(followedBy, usr)
 		}
 	}
