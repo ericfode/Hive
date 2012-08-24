@@ -6,7 +6,6 @@ import "io/ioutil"
 
 import "github.com/HackerSchool12/SpiderDB"
 import "github.com/HackerSchool12/SpiderDB/socialGraph"
-import "fmt"
 
 //TODO: refactor all structs out to own files and create render and compile methods for each
 //Render methods are for getting a page with just that items content
@@ -100,21 +99,19 @@ func initDummys() {
 
 	node0, err := gm.GetNode("1", socialGraph.SocialNodeConst)
 	if err != nil {
-		fmt.Print(err.Error())
+		print(err.Error())
 	}
 	node1, err := gm.GetNode("2", socialGraph.SocialNodeConst)
 	if err != nil {
-		fmt.Print(err.Error())
+		print(err.Error())
 	}
 	node2, err := gm.GetNode("3", socialGraph.SocialNodeConst)
 	if err != nil {
-		fmt.Print(err.Error())
+		print(err.Error())
 	}
 
 	gm.Attach(node0, node1, edgF)
 	gm.Attach(node0, node2, edgFB)
-
-	fmt.Printf("...%v\n\n...%v\n\n", edgF.GetPropMap(), edgFB.GetPropMap())
 
 }
 
@@ -178,8 +175,6 @@ func GetFollow(userID string) ([]*User, []*User, error) {
 
 	node, err1 := gm.GetNode(userID, socialGraph.SocialNodeConst)
 	nbr, err2 := gm.GetNeighbors(node, socialGraph.SocialEdgeConst, socialGraph.SocialNodeConst)
-
-	fmt.Printf("%v\n\n", nbr)
 
 	if err1 != nil {
 		return nil, nil, err1
@@ -291,12 +286,10 @@ func renderPage(ctx *web.Context) string {
 		}
 	}
 
-	fmt.Printf("++++++++++++++++USER NUMBER %v +++++++++\n", userID)
 	followedBy, following, err := GetFollow(userID)
 
 	if err != nil {
-		fmt.Printf("len follow: %v ... len followedby: %v\n", len(following), len(followedBy))
-		fmt.Print(err.Error())
+		print(err.Error())
 	}
 	home.CardRender = FetchUserInfo(userID)
 	home.StreamRender = &Stream{Items: []*StreamItem{
