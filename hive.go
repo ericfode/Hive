@@ -7,6 +7,8 @@ import "io/ioutil"
 import "github.com/HackerSchool12/SpiderDB"
 import "github.com/HackerSchool12/SpiderDB/socialGraph"
 
+import "fmt"
+
 //TODO: refactor all structs out to own files and create render and compile methods for each
 //Render methods are for getting a page with just that items content
 
@@ -188,19 +190,28 @@ func GetFollow(userID string) ([]*User, []*User, error) {
 
 	for _, v := range nbr {
 
-		sn, ok := v.NodeB.(*socialGraph.SocialNode)
-		if !ok {
-			return nil, nil, &hiveError{"Cannot cast to SocialNode"}
-		}
-		usr := SocialNodeToUser(sn)
+		if node.GetID() == v.NodeA.GetID() {
 
-		if v.Edg.GetType() == "follows" {
+			sn, ok := v.NodeB.(*socialGraph.SocialNode)
+			if !ok {
+				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+			}
+			usr := SocialNodeToUser(sn)
+
 			following = append(following, usr)
 		}
-		if v.Edg.GetType() == "follower" {
+		if node.GetID() == v.NodeB.GetID() {
+			sn, ok := v.NodeA.(*socialGraph.SocialNode)
+			if !ok {
+				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+			}
+			usr := SocialNodeToUser(sn)
+
 			followedBy = append(followedBy, usr)
 		}
 	}
+
+	fmt.Printf("NEIGHBOR NODES%v\n\n", following)
 
 	return following, followedBy, nil
 }
