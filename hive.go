@@ -14,6 +14,8 @@ import "fmt"
 
 var gm *spiderDB.GraphManager
 
+const jitted_s = "jitted"
+
 type User struct {
 	Pic        string
 	ProperName string
@@ -57,6 +59,7 @@ func initDummys() {
 	gm = new(spiderDB.GraphManager)
 	gm.Initialize()
 
+	// ======= SOCIAL NODES ======= //
 	const numdum = 8
 	pics := [numdum]string{"http://content8.flixster.com/question/28/64/25/2864258_std.jpg",
 		"http://4.bp.blogspot.com/-Q2hjS1dS1R8/T4YXpOfNjOI/AAAAAAAAAxQ/c-V_1FkMYmo/s1600/Bug.jpg",
@@ -117,6 +120,23 @@ func initDummys() {
 	gm.Attach(node0, node1, edgF)
 	gm.Attach(node0, node2, edgFB)
 
+	// ======= JITS ======= //
+	const numMsg = 4
+	testJits := make([]*socialGraph.MessageNode, 0)
+
+	jits := [numMsg]string{"JITTER", "JITJITJITTTER", "Jittttaaaaaah", "Jitterbug!"}
+	for _, v := range jits {
+		newNode := socialGraph.NewMessageNode(v)
+		testJits = append(testJits, newNode)
+	}
+
+	// ======= JIT EDGES ======= //
+	for _, jitter := range testJits {
+		edgJit := socialGraph.NewSocialEdge(1, "jitted", gm)
+		gm.AddEdge(edgJit)
+		gm.Attach(node0, jitter, edgJit)
+	}
+
 }
 
 func dummyStreamItem() *StreamItem {
@@ -141,7 +161,7 @@ func dummyUser() *User {
 func AddJitter(userID string, jit string) {
 	currUser, _ := gm.GetNode(userID, socialGraph.SocialNodeConst)
 	jitter := socialGraph.NewMessageNode(jit)
-	edge := socialGraph.NewSocialEdge(8182012, "jittered", gm)
+	edge := socialGraph.NewSocialEdge(8182012, jitted_s, gm)
 	gm.Attach(currUser, jitter, edge)
 
 }
@@ -173,6 +193,41 @@ func compileProfile(user *User) *User {
 	return user
 }
 
+func GetFollowNodes(userID string) ([]spiderDB.Connection, []spiderDB.Connection, error) {
+	following := make([]spiderDB.Connection, 0)
+	followedBy := make([]spiderDB.Connection, 0)
+
+	node, err1 := gm.GetNode(userID, socialGraph.SocialNodeConst)
+	nbr, err2 := gm.GetNeighbors(node, socialGraph.SocialEdgeConst, socialGraph.SocialNodeConst)
+
+	if err1 != nil {
+		return nil, nil, err1
+	}
+
+	print(node.GetID())
+
+	if err2 != nil {
+		print("LINE 209 ERROR HEREEEE")
+
+		return nil, nil, err2
+	}
+
+	for _, v := range nbr {
+		if v.Edg.GetType() == "follows" {
+			if node.GetID() == v.NodeA.GetID() {
+				following = append(following, v)
+			}
+			if node.GetID() == v.NodeB.GetID() {
+				followedBy = append(followedBy, v)
+			}
+		}
+	}
+
+	fmt.Printf("NEIGHBOR NODES%v\n\n", following)
+
+	return following, followedBy, nil
+}
+
 func GetFollow(userID string) ([]*User, []*User, error) {
 	following := make([]*User, 0)
 	followedBy := make([]*User, 0)
@@ -184,36 +239,67 @@ func GetFollow(userID string) ([]*User, []*User, error) {
 		return nil, nil, err1
 	}
 
+	print(node.GetID())
+
 	if err2 != nil {
+		print("LINE 209 ERROR HEREEEE")
+
 		return nil, nil, err2
 	}
 
 	for _, v := range nbr {
+		if v.Edg.GetType() == "follows" {
+			if node.GetID() == v.NodeA.GetID() {
 
-		if node.GetID() == v.NodeA.GetID() {
+				sn, ok := v.NodeB.(*socialGraph.SocialNode)
+				if !ok {
+					return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				}
+				usr := SocialNodeToUser(sn)
 
-			sn, ok := v.NodeB.(*socialGraph.SocialNode)
-			if !ok {
-				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				following = append(following, usr)
 			}
-			usr := SocialNodeToUser(sn)
+			if node.GetID() == v.NodeB.GetID() {
+				sn, ok := v.NodeA.(*socialGraph.SocialNode)
+				if !ok {
+					return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				}
+				usr := SocialNodeToUser(sn)
 
-			following = append(following, usr)
-		}
-		if node.GetID() == v.NodeB.GetID() {
-			sn, ok := v.NodeA.(*socialGraph.SocialNode)
-			if !ok {
-				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				followedBy = append(followedBy, usr)
 			}
-			usr := SocialNodeToUser(sn)
-
-			followedBy = append(followedBy, usr)
 		}
 	}
 
 	fmt.Printf("NEIGHBOR NODES%v\n\n", following)
 
 	return following, followedBy, nil
+}
+
+func GetJits(userID string) ([]*StreamItem, error) {
+
+	jitList := make([]*StreamItem, 0)
+
+	_, following, _ := GetFollowNodes(userID)
+	for _, v := range following {
+		println(string(v.NodeA.GetPropMap()["UserName"]))
+		jits, _ := gm.GetNeighbors(v.NodeA, socialGraph.SocialEdgeConst, socialGraph.MessageNodeConst)
+		for _, jit := range jits {
+			if jit.Edg.GetType() == "jitted" {
+				msgNode, ok := jit.NodeA.(*socialGraph.MessageNode)
+				if !ok {
+					return nil, &hiveError{"Could not convert to messageNode"}
+				}
+				usrNode, ok := jit.NodeB.(*socialGraph.SocialNode)
+				if !ok {
+					return nil, &hiveError{"Could not convert to SociaNode"}
+				}
+				jitList = append(jitList, MessageNodeToStreamItem(msgNode, usrNode))
+
+			}
+		}
+	}
+	return jitList, nil
 }
 
 func SocialNodeToUser(sn *socialGraph.SocialNode) *User {
@@ -228,6 +314,17 @@ func SocialNodeToUser(sn *socialGraph.SocialNode) *User {
 	usr.Github = sn.GetGit()
 
 	return usr
+}
+
+func MessageNodeToStreamItem(mn *socialGraph.MessageNode, sn *socialGraph.SocialNode) *StreamItem {
+	si := &StreamItem{}
+
+	si.Pic = sn.GetPic()
+	si.UserName = sn.GetUserName()
+	si.Id = mn.GetID()
+	si.JIT = mn.GetText()
+
+	return si
 }
 
 func renderFollow(userID string) string {
@@ -341,11 +438,18 @@ func renderPage(ctx *web.Context) string {
 	followedBy, following, err := GetFollow(user)
 
 	if err != nil {
-		print(err.Error())
+		print(err.Error() + " in renderPage ")
 	}
+
+	jits, err := GetJits(user)
+	if err != nil {
+		print(err.Error() + " in renderPage jiterror ")
+	}
+
 	home.CardRender = FetchUserInfo(user)
-	home.StreamRender = &Stream{UserID: user, Items: []*StreamItem{
-		dummyStreamItem(), dummyStreamItem(), dummyStreamItem()}}
+	home.StreamRender = &Stream{UserID: user, Items: jits}
+	//home.StreamRender = &Stream{UserID: user, Items: []*StreamItem{
+	//	dummyStreamItem(), dummyStreamItem()}}
 	home.FollowRender = new(Follow)
 	home.FollowRender.UserID = user
 	home.FollowRender.FollowedBy = followedBy
@@ -401,4 +505,5 @@ func main() {
 	web.Get("/Follows", renderFollow)
 	web.Post("/Follow", addFollow)
 	web.Run("0.0.0.0:9998")
+
 }
