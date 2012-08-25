@@ -215,6 +215,35 @@ func GetFollow(userID string) ([]*User, []*User, error) {
 	return following, followedBy, nil
 }
 
+func GetJits(userID string) ([]*StreamItem, error) {
+
+	jits := make([]*StreamItem, 0)
+
+	node, err1 := gm.GetNode(userID, socialGraph.SocialNodeConst)
+	nbr, err2 := gm.GetNeighbors(node, socialGraph.SocialEdgeConst, socialGraph.SocialNodeConst)
+
+	if err1 != nil {
+		return nil, err1
+	}
+	if err2 != nil {
+		return nil, err1
+	}
+
+	for _, v := range nbr {
+		//if v.Edg.GetType() == jittered_s {
+		//}
+		//if v.Edg.GetType() == refBy_s {
+		//}
+		msgNode, ok := v.NodeB.(*socialGraph.MessageNode)
+		if !ok {
+			return nil, &hiveError("Could not convert to messageNode")
+		}
+		jits = append(jits, MessageNodeToStreamItem(msgNode))
+	}
+
+	return jits
+}
+
 func SocialNodeToUser(sn *socialGraph.SocialNode) *User {
 	usr := &User{}
 
@@ -227,6 +256,17 @@ func SocialNodeToUser(sn *socialGraph.SocialNode) *User {
 	usr.Github = sn.GetGit()
 
 	return usr
+}
+
+func MessageNodeToStreamItem(mn *socialGraph.MessageNode) *StreamItem {
+	si := &StreamItem{}
+
+	si.Pic = mn.GetPic()
+	si.Id = mn.GetId()
+	si.JIT = mn.GetText()
+	si.UserName = mn.GetUserName()
+
+	return si
 }
 
 func renderFollow(userID string) string {
@@ -320,9 +360,16 @@ func renderPage(user string) string {
 	if err != nil {
 		print(err.Error())
 	}
+<<<<<<< Updated upstream
 	home.CardRender = FetchUserInfo(user)
 	home.StreamRender = &Stream{UserID: user, Items: []*StreamItem{
 		dummyStreamItem(), dummyStreamItem(), dummyStreamItem()}}
+=======
+	home.CardRender = FetchUserInfo(userID)
+	home.StreamRender = GetJits(userID)
+	//home.StreamRender = &Stream{Items: []*StreamItem{
+	//	dummyStreamItem(), dummyStreamItem(), dummyStreamItem()}}
+>>>>>>> Stashed changes
 	home.FollowRender = new(Follow)
 	home.FollowRender.FollowedBy = followedBy
 	home.FollowRender.Following = following
@@ -376,4 +423,5 @@ func main() {
 	web.Post("/StreamItem", addStreamItem)
 	web.Get("/Follows", renderFollow)
 	web.Run("0.0.0.0:9998")
+
 }
