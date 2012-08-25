@@ -34,8 +34,9 @@ type StreamItem struct {
 }
 
 type Stream struct {
-	Items []*StreamItem
-	Html  string
+	Items  []*StreamItem
+	UserID string
+	Html   string
 }
 
 type Home struct {
@@ -279,6 +280,22 @@ func compileStreamItem(si *StreamItem) *StreamItem {
 	return si
 }
 
+func addStreamItem(ctx *web.Context) string {
+	JIT := ctx.Params["JIT"]
+	userID := ctx.Params["userID"]
+	userNode, err := gm.GetNode(userID, socialGraph.SocialNodeConst)
+	if err != nil {
+		panic(err.Error())
+	}
+	messageNode := &socialGraph.MessageNode{}
+	messageNode.SetText(JIT)
+	jitEdge := socialGraph.NewSocialEdge(1, "jitted", gm)
+	gm.AddNode(messageNode)
+	gm.AddEdge(jitEdge)
+	gm.Attach(userNode, messageNode, jitEdge)
+	return renderPage(userID)
+}
+
 func compileHome(home *Home) *Home {
 	compileProfile(home.CardRender)
 	compileStream(home.StreamRender)
@@ -295,23 +312,16 @@ func renderSplash() string {
 	return html
 }
 
-func renderPage(ctx *web.Context) string {
+func renderPage(user string) string {
 	home := new(Home)
 
-	userID := "0"
-	for k, v := range ctx.Params {
-		if k == "user" {
-			userID = v
-		}
-	}
-
-	followedBy, following, err := GetFollow(userID)
+	followedBy, following, err := GetFollow(user)
 
 	if err != nil {
 		print(err.Error())
 	}
-	home.CardRender = FetchUserInfo(userID)
-	home.StreamRender = &Stream{Items: []*StreamItem{
+	home.CardRender = FetchUserInfo(user)
+	home.StreamRender = &Stream{UserID: user, Items: []*StreamItem{
 		dummyStreamItem(), dummyStreamItem(), dummyStreamItem()}}
 	home.FollowRender = new(Follow)
 	home.FollowRender.FollowedBy = followedBy
@@ -356,13 +366,14 @@ func renderJS(val string) string {
 
 func main() {
 	initDummys()
-	web.Get("/", renderPage)
+	web.Get("/Home&userID=(.*)", renderPage)
 	web.Get("/Splash", renderSplash)
 	web.Get("/ProfileCard", renderProfile)
 	web.Get("/CSS/(.*)", renderCSS)
 	web.Get("/JS/(.*)", renderJS)
 	web.Get("/Stream", renderStream)
 	web.Get("/StreamItem", renderStreamItem)
+	web.Post("/StreamItem", addStreamItem)
 	web.Get("/Follows", renderFollow)
 	web.Run("0.0.0.0:9998")
 }
