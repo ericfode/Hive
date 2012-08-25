@@ -1,7 +1,8 @@
 <div class="stream">
-	<form class="new-jit form-inline span8"/>
-	<input type="textarea" class="span8 jit-input center"/>
-	<button type="submit" class="jit-btn btn btn-primary">Jit</button>
+	<form action="/StreamItem" method="post" class="new-jit form-inline span8"/>
+	<input type="hidden" name="userID" value="{{UserID}}"/>
+	<input type="textarea" name="JIT" class="span8 jit-input center"/>
+	<button type="submit" value="submit" class="jit-btn btn btn-primary">Jit</button>
 	</form>
 	<div class="stream-box span8">
 		{{#Items}}
