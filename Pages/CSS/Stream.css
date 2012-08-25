@@ -1,18 +1,21 @@
 .stream .jit-btn{
-	margin-left: 93.5%;
+	margin-left: 91%;
 	margin-top: 10px;
 }
 
 .stream .new-jit{
-	padding-bottom:5px;
+	padding-top:10px;
+	padding-bottom:10px;
 	margin-left: 0px;
 	border-radius: 5px;
 	background-color: #F5F5F5;
 }
 
 .stream .jit-input{
-	margin-top:5px;
-	margin-left: 5px;
+	margin-left: 20px;
+	margin-right: 20px;
+	width:93.5%;
+
 }
 
 .stream .center{

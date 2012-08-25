@@ -247,10 +247,11 @@ func renderFollow(userID string) string {
 func addFollow(ctx *web.Context) string {
 	userID := ctx.Params["userID"]
 	newFollow := ctx.Params["newFollow"]
+	ctx.Params["user"] = userID
 
 	found, erra := gm.FindNodeWithValue("UserName", newFollow, socialGraph.SocialNodeConst)
 	if len(found) != 1 || erra != nil {
-		panic("wrong number of users")
+		renderPage(ctx)
 	}
 
 	usernode, errb := gm.GetNode(userID, socialGraph.SocialNodeConst)
@@ -261,7 +262,6 @@ func addFollow(ctx *web.Context) string {
 	edge := socialGraph.NewSocialEdge(1, "follows", gm)
 	gm.AddEdge(edge)
 	gm.Attach(usernode, found[0], edge)
-	ctx.Params["user"] = userID
 	return renderPage(ctx)
 }
 
