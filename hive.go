@@ -193,6 +193,41 @@ func compileProfile(user *User) *User {
 	return user
 }
 
+func GetFollowNodes(userID string) ([]spiderDB.Connection, []spiderDB.Connection, error) {
+	following := make([]spiderDB.Connection, 0)
+	followedBy := make([]spiderDB.Connection, 0)
+
+	node, err1 := gm.GetNode(userID, socialGraph.SocialNodeConst)
+	nbr, err2 := gm.GetNeighbors(node, socialGraph.SocialEdgeConst, socialGraph.SocialNodeConst)
+
+	if err1 != nil {
+		return nil, nil, err1
+	}
+
+	print(node.GetID())
+
+	if err2 != nil {
+		print("LINE 209 ERROR HEREEEE")
+
+		return nil, nil, err2
+	}
+
+	for _, v := range nbr {
+		if v.Edg.GetType() == "follows" {
+			if node.GetID() == v.NodeA.GetID() {
+				following = append(following, v)
+			}
+			if node.GetID() == v.NodeB.GetID() {
+				followedBy = append(followedBy, v)
+			}
+		}
+	}
+
+	fmt.Printf("NEIGHBOR NODES%v\n\n", following)
+
+	return following, followedBy, nil
+}
+
 func GetFollow(userID string) ([]*User, []*User, error) {
 	following := make([]*User, 0)
 	followedBy := make([]*User, 0)
@@ -213,25 +248,26 @@ func GetFollow(userID string) ([]*User, []*User, error) {
 	}
 
 	for _, v := range nbr {
+		if v.Edg.GetType() == "follows" {
+			if node.GetID() == v.NodeA.GetID() {
 
-		if node.GetID() == v.NodeA.GetID() {
+				sn, ok := v.NodeB.(*socialGraph.SocialNode)
+				if !ok {
+					return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				}
+				usr := SocialNodeToUser(sn)
 
-			sn, ok := v.NodeB.(*socialGraph.SocialNode)
-			if !ok {
-				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				following = append(following, usr)
 			}
-			usr := SocialNodeToUser(sn)
+			if node.GetID() == v.NodeB.GetID() {
+				sn, ok := v.NodeA.(*socialGraph.SocialNode)
+				if !ok {
+					return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				}
+				usr := SocialNodeToUser(sn)
 
-			following = append(following, usr)
-		}
-		if node.GetID() == v.NodeB.GetID() {
-			sn, ok := v.NodeA.(*socialGraph.SocialNode)
-			if !ok {
-				return nil, nil, &hiveError{"Cannot cast to SocialNode"}
+				followedBy = append(followedBy, usr)
 			}
-			usr := SocialNodeToUser(sn)
-
-			followedBy = append(followedBy, usr)
 		}
 	}
 
@@ -242,37 +278,28 @@ func GetFollow(userID string) ([]*User, []*User, error) {
 
 func GetJits(userID string) ([]*StreamItem, error) {
 
-	jits := make([]*StreamItem, 0)
+	jitList := make([]*StreamItem, 0)
 
-	node, err1 := gm.GetNode(userID, socialGraph.SocialNodeConst)
-	nbr, err2 := gm.GetNeighbors(node, socialGraph.SocialEdgeConst, socialGraph.MessageNodeConst)
-	sn, ok := node.(*socialGraph.SocialNode)
+	_, following, _ := GetFollowNodes(userID)
+	for _, v := range following {
+		println(string(v.NodeA.GetPropMap()["UserName"]))
+		jits, _ := gm.GetNeighbors(v.NodeA, socialGraph.SocialEdgeConst, socialGraph.MessageNodeConst)
+		for _, jit := range jits {
+			if jit.Edg.GetType() == "jitted" {
+				msgNode, ok := jit.NodeA.(*socialGraph.MessageNode)
+				if !ok {
+					return nil, &hiveError{"Could not convert to messageNode"}
+				}
+				usrNode, ok := jit.NodeB.(*socialGraph.SocialNode)
+				if !ok {
+					return nil, &hiveError{"Could not convert to SociaNode"}
+				}
+				jitList = append(jitList, MessageNodeToStreamItem(msgNode, usrNode))
 
-	if err1 != nil {
-		return nil, err1
-	}
-	if err2 != nil {
-		fmt.Println("HERE IN GETJITS!!!!!!")
-		return nil, err2
-	}
-
-	if !ok {
-		return nil, &hiveError{"Could not convert to socialNode"}
-	}
-
-	for _, v := range nbr {
-		if v.Edg.GetType() == jitted_s {
-
-			msgNode, ok := v.NodeB.(*socialGraph.MessageNode)
-			if !ok {
-				return nil, &hiveError{"Could not convert to messageNode"}
 			}
-
-			jits = append(jits, MessageNodeToStreamItem(msgNode, sn))
 		}
 	}
-	fmt.Printf("++++++++++++++JITSLEN++++++++ : %v\n", len(jits))
-	return jits, nil
+	return jitList, nil
 }
 
 func SocialNodeToUser(sn *socialGraph.SocialNode) *User {
