@@ -6,6 +6,13 @@
 				<h3 class="screen-name" >#{{UserName}}<h3>
 			</div>
 		{{/Following}}
+	<form action="/Follow" method="post" class="new-follow form-inline top-divider"/>
+	<input type="hidden" name="userID" value="{{UserID}}"/>
+	<div class="input-append">
+	<input type="text" placeholder="Follow User..." name="newFollow" class="input-med  follow-input center"/><button type="submit" value="submit" class="btn btn-primary">Follow</button>
+	</div>
+	</form>
+ 
 	</div>
 </div>
 

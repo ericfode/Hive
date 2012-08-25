@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"siz",
+				"font-size"
+			],
+			[
 				"Ren",
 				"RenderFileInLayout	string ƒ"
 			],
@@ -151,7 +163,7 @@
 			"file": "hive.go",
 			"settings":
 			{
-				"buffer_size": 6248,
+				"buffer_size": 9111,
 				"line_ending": "Unix"
 			}
 		},
@@ -183,7 +195,7 @@
 			"file": "Pages/Home.mustache",
 			"settings":
 			{
-				"buffer_size": 579,
+				"buffer_size": 473,
 				"line_ending": "Unix"
 			}
 		},
@@ -191,15 +203,15 @@
 			"file": "Pages/Splash.mustache",
 			"settings":
 			{
-				"buffer_size": 1700,
+				"buffer_size": 1544,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Pages/Login.html",
+			"file": "Pages/Stream.mustache",
 			"settings":
 			{
-				"buffer_size": 601,
+				"buffer_size": 284,
 				"line_ending": "Unix"
 			}
 		},
@@ -207,7 +219,7 @@
 			"file": "Pages/CSS/global.css",
 			"settings":
 			{
-				"buffer_size": 631,
+				"buffer_size": 879,
 				"line_ending": "Unix"
 			}
 		},
@@ -216,6 +228,14 @@
 			"settings":
 			{
 				"buffer_size": 145,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Pages/CSS/Stream.css",
+			"settings":
+			{
+				"buffer_size": 249,
 				"line_ending": "Unix"
 			}
 		},
@@ -239,16 +259,28 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 138.0,
+		"height": 75.0,
 		"selected_items":
 		[
 			[
-				"set HTML",
-				"Set Syntax: HTML"
+				"go install",
+				"GoSublime: Install/Update MarGo and Gocode"
 			],
 			[
 				"git push",
 				"Git: Push"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git ad",
+				"Git: Add..."
+			],
+			[
+				"set HTML",
+				"Set Syntax: HTML"
 			],
 			[
 				"git commit",
@@ -304,14 +336,6 @@
 			],
 			[
 				"git com",
-				"Git: Commit"
-			],
-			[
-				"git ad",
-				"Git: Add..."
-			],
-			[
-				"git comm",
 				"Git: Commit"
 			],
 			[
@@ -395,7 +419,7 @@
 				"View: Toggle Open Files in Side Bar"
 			]
 		],
-		"width": 494.0
+		"width": 487.0
 	},
 	"console":
 	{
@@ -412,6 +436,7 @@
 	},
 	"file_history":
 	[
+		"/home/ericfode/proj/go/src/github.com/HackerSchool12/Hive/Pages/Login.html",
 		"/home/ericfode/hack.php",
 		"/home/ericfode/proj/go/src/github.com/HackerSchool12/Hive/Hive",
 		"/home/ericfode/proj/go/src/github.com/HackerSchool12/Hive/Pages/layout.mustache",
@@ -480,15 +505,15 @@
 					"file": "hive.go",
 					"settings":
 					{
-						"buffer_size": 6248,
+						"buffer_size": 9111,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4950,
-								4950
+								7217,
+								7217
 							]
 						],
 						"settings":
@@ -497,7 +522,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3689.0,
+						"translation.y": 4375.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -588,15 +613,15 @@
 					"file": "Pages/Home.mustache",
 					"settings":
 					{
-						"buffer_size": 579,
+						"buffer_size": 473,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								157,
-								157
+								153,
+								153
 							]
 						],
 						"settings":
@@ -615,15 +640,15 @@
 					"file": "Pages/Splash.mustache",
 					"settings":
 					{
-						"buffer_size": 1700,
+						"buffer_size": 1544,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								307,
-								307
+								81,
+								81
 							]
 						],
 						"settings":
@@ -639,24 +664,23 @@
 				},
 				{
 					"buffer": 6,
-					"file": "Pages/Login.html",
+					"file": "Pages/Stream.mustache",
 					"settings":
 					{
-						"buffer_size": 601,
+						"buffer_size": 284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								412,
-								412
+								284,
+								284
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -667,7 +691,7 @@
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -675,15 +699,15 @@
 					"file": "Pages/CSS/global.css",
 					"settings":
 					{
-						"buffer_size": 631,
+						"buffer_size": 879,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								42,
-								42
+								71,
+								71
 							]
 						],
 						"settings":
@@ -725,6 +749,32 @@
 				},
 				{
 					"buffer": 9,
+					"file": "Pages/CSS/Stream.css",
+					"settings":
+					{
+						"buffer_size": 249,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								34,
+								34
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
 					"file": "Pages/CSS/DisplayProfile.css",
 					"settings":
 					{
@@ -751,7 +801,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "Pages/CSS/Home.css",
 					"settings":
 					{

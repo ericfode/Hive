@@ -47,6 +47,7 @@ type Home struct {
 type Follow struct {
 	FollowedBy []*User
 	Following  []*User
+	UserID     string
 	Html       string
 }
 
@@ -73,7 +74,7 @@ func initDummys() {
 		"I am from C",
 		"I am from D"}
 	names := [numdum]string{"nameTEST", "Wedunno", "Joe", "Bill", "Jane", "Sue", "Sally", "Tom"}
-	users := [numdum]string{"userTEST", "Whothatis", "jmk", "bill-o-rama", "sparkles", "user", "user", "uzaaah"}
+	users := [numdum]string{"userTEST", "Whothatis", "jmk", "bill-o-rama", "sparkles", "user1", "user2", "uzaaah"}
 	github := [numdum]string{"githubTEST",
 		"http://github.com/IAMAUSER",
 		"http://github.com/IAMAUSER",
@@ -91,7 +92,7 @@ func initDummys() {
 	}
 
 	edgF := socialGraph.NewSocialEdge(1, "follows", gm)
-	edgFB := socialGraph.NewSocialEdge(1, "follower", gm)
+	edgFB := socialGraph.NewSocialEdge(1, "follows", gm)
 
 	gm.AddEdge(edgF)
 	gm.AddEdge(edgFB)
@@ -232,6 +233,27 @@ func renderFollow(userID string) string {
 	return compileFollow(follow).Html
 }
 
+func addFollow(ctx *web.Context) string {
+	userID := ctx.Params["userID"]
+	newFollow := ctx.Params["newFollow"]
+
+	found, erra := gm.FindNodeWithValue("UserName", newFollow, socialGraph.SocialNodeConst)
+	if len(found) != 1 || erra != nil {
+		panic("wrong number of users")
+	}
+
+	usernode, errb := gm.GetNode(userID, socialGraph.SocialNodeConst)
+	if errb != nil {
+		panic(errb.Error())
+	}
+
+	edge := socialGraph.NewSocialEdge(1, "follows", gm)
+	gm.AddEdge(edge)
+	gm.Attach(usernode, found[0], edge)
+	ctx.Params["user"] = userID
+	return renderPage(ctx)
+}
+
 func compileFollow(f *Follow) *Follow {
 	f.Html = mustache.RenderFile("Pages/Follow.mustache", f)
 	return f
@@ -282,7 +304,8 @@ func addStreamItem(ctx *web.Context) string {
 	gm.AddNode(messageNode)
 	gm.AddEdge(jitEdge)
 	gm.Attach(userNode, messageNode, jitEdge)
-	return renderPage(userID)
+	ctx.Params["user"] = userID
+	return renderPage(ctx)
 }
 
 func compileHome(home *Home) *Home {
@@ -301,9 +324,9 @@ func renderSplash() string {
 	return html
 }
 
-func renderPage(user string) string {
+func renderPage(ctx *web.Context) string {
 	home := new(Home)
-
+	user := ctx.Params["user"]
 	followedBy, following, err := GetFollow(user)
 
 	if err != nil {
@@ -313,6 +336,7 @@ func renderPage(user string) string {
 	home.StreamRender = &Stream{UserID: user, Items: []*StreamItem{
 		dummyStreamItem(), dummyStreamItem(), dummyStreamItem()}}
 	home.FollowRender = new(Follow)
+	home.FollowRender.UserID = user
 	home.FollowRender.FollowedBy = followedBy
 	home.FollowRender.Following = following
 
@@ -355,7 +379,7 @@ func renderJS(val string) string {
 
 func main() {
 	initDummys()
-	web.Get("/Home&userID=(.*)", renderPage)
+	web.Get("/Home", renderPage)
 	web.Get("/Splash", renderSplash)
 	web.Get("/ProfileCard", renderProfile)
 	web.Get("/CSS/(.*)", renderCSS)
@@ -364,5 +388,6 @@ func main() {
 	web.Get("/StreamItem", renderStreamItem)
 	web.Post("/StreamItem", addStreamItem)
 	web.Get("/Follows", renderFollow)
+	web.Post("/Follow", addFollow)
 	web.Run("0.0.0.0:9998")
 }
