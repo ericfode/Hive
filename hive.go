@@ -4,8 +4,8 @@ import "github.com/hoisie/web"
 import "github.com/hoisie/mustache"
 import "io/ioutil"
 
-import "github.com/HackerSchool12/SpiderDB"
-import "github.com/HackerSchool12/SpiderDB/socialGraph"
+import "github.com/ericfode/SpiderDB"
+import "github.com/ericfode/SpiderDB/socialGraph"
 
 import "fmt"
 
